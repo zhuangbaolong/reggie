@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通用返回结果类
+ * 通用返回结果类,服务端响应的数据最终都会封装成此类.
  */
 
 @Data
