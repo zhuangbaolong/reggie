@@ -18,7 +18,7 @@
 <!--        &lt;!&ndash;本页面内容的样式&ndash;&gt;-->
 <!--        <link rel="stylesheet" href="../styles/login.css" />-->
         <title>金银湖</title>
-        <link rel="icon" href="./../images/favico.ico">
+        <link rel="icon" href="../images/favico.ico">
         <!--不同屏幕尺寸根字体设置-->
         <script src="/front/js/base.js"></script>
         <!--element-ui的样式-->
@@ -70,11 +70,11 @@
         <!-- 引入组件库 -->
         <script src="../../backend/plugins/element-ui/index.js"></script>
         <!-- 引入vant样式 -->
-        <script src="./../js/vant.min.js"></script>  
+        <script src="../js/vant.min.js"></script>
         <!-- 引入axios -->
         <script src="../../backend/plugins/axios/axios.min.js"></script>
-        <script src="./../js/request.js"></script>
-        <script src="./../api/login.js"></script>
+        <script src="../js/request.js"></script>
+        <script src="../api/login.js"></script>
 
     </body>
 
@@ -114,7 +114,7 @@
                         if(res.code === 1){
                             sessionStorage.setItem("userPhone",this.form.phone)
                             window.requestAnimationFrame(()=>{
-                                window.location.href= '/front/index.html'
+                                window.location.href= '../index.html'
                             })                           
                         }else{
                             this.$notify({ type:'warning', message:res.msg});

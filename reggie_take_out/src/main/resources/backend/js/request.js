@@ -38,19 +38,22 @@
     }
     return config
   }, error => {
+      console.log(error)
       Promise.reject(error)
   })
 
   // 响应拦截器
   service.interceptors.response.use(res => {
-      console.log('---响应拦截器---',res)
       if (res.data.code === 0 && res.data.msg === 'NOTLOGIN') {// 返回登录页面
-        window.top.location.href = '/front/page/login.html'
+        console.log('---/backend/page/login/login.html---')
+        localStorage.removeItem('userInfo')
+        window.top.location.href = '../page/login/login.html'
       } else {
         return res.data
       }
     },
     error => {
+      console.log('err' + error)
       let { message } = error;
       if (message == "Network Error") {
         message = "后端接口连接异常";
@@ -61,12 +64,11 @@
       else if (message.includes("Request failed with status code")) {
         message = "系统接口" + message.substr(message.length - 3) + "异常";
       }
-      window.vant.Notify({
+      window.ELEMENT.Message({
         message: message,
-        type: 'warning',
+        type: 'error',
         duration: 5 * 1000
       })
-      //window.top.location.href = '/front/page/no-wify.html'
       return Promise.reject(error)
     }
   )
