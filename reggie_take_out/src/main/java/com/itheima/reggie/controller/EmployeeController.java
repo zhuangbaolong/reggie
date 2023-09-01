@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @Slf4j
 @RestController
@@ -55,5 +56,29 @@ public class EmployeeController {
         //6.登录成功,将员工id存入Session并返回登录成功结果。
         request.getSession().setAttribute("employee",emp.getId());
         return R.success(emp);
+    }
+
+    /**
+     * 新增员工
+     * @param employee
+     * @return
+     */
+    @PostMapping
+    //返回的code，泛型用String类型。发送json格式用@RequestBody注解
+    public R<String> save(HttpServletRequest request,@RequestBody Employee employee){
+        log.info("新增员工,员工信息:{}",employee);
+        //设置密码123456,md5加密处理
+        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+
+        //时间
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        //获取当前用户id
+        Long empId = (Long) request.getSession().getAttribute("employee");
+        employee.setCreateUser(empId);
+        employee.setUpdateUser(empId);
+        employeeService.save(employee);
+        return R.success("新增员工成功");
     }
 }
